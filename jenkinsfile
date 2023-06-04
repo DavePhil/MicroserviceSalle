@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('SCM') {
             steps {
-                git changelog: false, poll: false, url: 'https://github.com/DavePhil/MicroserviceProgramme.git'
+                git changelog: false, poll: false, url: 'https://github.com/DavePhil/MicroserviceSalle.git'
             }
         }
         stage('Maven Build'){
@@ -17,7 +17,7 @@ pipeline {
         stage('Docker Build'){
             steps {
                 script {
-                    bat "docker build -t davechedjoun/microprogramme ."
+                    bat "docker build -t davechedjoun/microsalle ."
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
                 script {
                     withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
                         bat "docker login -u davechedjoun -p ${dockerhubpwd}"
-                        bat "docker push davechedjoun/microprogramme"
+                        bat "docker push davechedjoun/microsalle"
                     }
             }
             }
